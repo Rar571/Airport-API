@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Airport',
+            name='airport',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255)),
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=255)),
                 ('rows', models.PositiveIntegerField()),
                 ('seats_in_row', models.PositiveIntegerField()),
-                ('airplane_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='airplanes', to='Airport_app.airplanetype')),
+                ('airplane_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='airplanes', to='airport_app.airplanetype')),
             ],
         ),
         migrations.CreateModel(
@@ -60,8 +60,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('distance', models.PositiveIntegerField()),
-                ('destination', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='routes_destination', to='Airport_app.airport')),
-                ('source', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='routes_source', to='Airport_app.airport')),
+                ('destination', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='routes_destination', to='airport_app.airport')),
+                ('source', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='routes_source', to='airport_app.airport')),
             ],
         ),
         migrations.CreateModel(
@@ -70,9 +70,9 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('departure_time', models.DateTimeField()),
                 ('arrival_time', models.DateTimeField()),
-                ('airplane', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='flights', to='Airport_app.airplane')),
-                ('crew', models.ManyToManyField(to='Airport_app.crew')),
-                ('route', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='flights', to='Airport_app.route')),
+                ('airplane', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='flights', to='airport_app.airplane')),
+                ('crew', models.ManyToManyField(to='airport_app.crew')),
+                ('route', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='flights', to='airport_app.route')),
             ],
         ),
         migrations.CreateModel(
@@ -81,8 +81,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('row', models.PositiveIntegerField()),
                 ('seat', models.PositiveIntegerField()),
-                ('flight', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='tickets', to='Airport_app.flight')),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tickets', to='Airport_app.order')),
+                ('flight', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='tickets', to='airport_app.flight')),
+                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tickets', to='airport_app.order')),
             ],
         ),
     ]

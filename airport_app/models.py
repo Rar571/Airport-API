@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Airport(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     closest_big_city = models.CharField(max_length=255)
 
     def __str__(self):
@@ -16,7 +16,7 @@ class Route(models.Model):
     distance = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"From {self.source} to {self.destination}."
+        return f"From '{self.source}' to '{self.destination}'."
 
 
 class Flight(models.Model):
