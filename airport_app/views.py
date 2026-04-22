@@ -2,28 +2,32 @@ from django.shortcuts import render
 
 from rest_framework import viewsets
 
-from Airport_app.models import Airport, Route, Flight, Airplane, Crew, AirplaneType, Ticket, Order
-from Airport_app.serializers import AirportSerializer, RouteSerializer, FlightSerializer, CrewSerializer, AirplaneTypeSerializer, TicketSerializer, OrderSerializer
+from airport_app.models import Airport, Route, Flight, Airplane, Crew, AirplaneType, Ticket, Order
+from airport_app.serializers import AirportSerializer, RouteSerializer, FlightSerializer, CrewSerializer, AirplaneTypeSerializer, TicketSerializer, OrderSerializer, AirplaneSerializer, FlightCreateSerializer
 
 
-class AirPortViewSet(viewsets.ModelViewSet):
+class AirportViewSet(viewsets.ModelViewSet):
     queryset = Airport.objects.all()
     serializer_class = AirportSerializer
 
 
 class RouteViewSet(viewsets.ModelViewSet):
-    queryset = Route
+    queryset = Route.objects.all()
     serializer_class = RouteSerializer
 
 
 class FlightViewSet(viewsets.ModelViewSet):
-    queryset = Flight
+    queryset = Flight.objects.all()
     serializer_class = FlightSerializer
 
+    def get_serializer_class(self):
+        if self.action == "create":
+            return FlightCreateSerializer
+        return FlightSerializer
 
 class AirplaneViewSet(viewsets.ModelViewSet):
     queryset = Airplane.objects.all()
-    serializer_class = Airplane
+    serializer_class = AirplaneSerializer
 
 
 class CrewViewSet(viewsets.ModelViewSet):
