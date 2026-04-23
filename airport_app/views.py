@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets, status
 from rest_framework.decorators import action, permission_classes
 from rest_framework.permissions import IsAdminUser
@@ -31,6 +32,14 @@ class AirportViewSet(viewsets.ModelViewSet):
         if self.action in ("list", "retrieve"):
             return self.queryset.prefetch_related("routes_source")
         return self.queryset
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name='route',
+                description='Filter by route id',
+                type={"type": "array", "items": {"type": "number"}})])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 
 class RouteViewSet(viewsets.ModelViewSet):
@@ -82,6 +91,23 @@ class FlightViewSet(viewsets.ModelViewSet):
                                "route__source", "route__destination",
                                "airplane__airplane_type").
                                 prefetch_related("crew"))
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name='airplane',
+                description='Filter by airplane name',
+                type={"type": "array", "items": {"type": "string"}}),
+            OpenApiParameter(
+                name='route source',
+                description='Filter by route source',
+                type={"type": "array", "items": {"type": "string"}}),
+            OpenApiParameter(
+                name='route destination',
+                description='Filter by route destination',
+                type={"type": "array", "items": {"type": "string"}})])
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 
 class AirplaneViewSet(viewsets.ModelViewSet):

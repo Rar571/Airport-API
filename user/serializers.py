@@ -47,7 +47,8 @@ class AuthTokenSerializer(serializers.Serializer):
         email = attrs.get('email')
         password = attrs.get('password')
         try:
-            user = User.objects.get(email=email)
+            user1 = get_user_model()
+            user = user1.objects.get(email=email)
         except User.DoesNotExist:
             raise serializers.ValidationError('Unable to log in with provided credentials.')
         if not user.check_password(password):
