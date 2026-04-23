@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'user',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'airport_app',
     'rest_framework',
-    'debug_toolbar'
+    'debug_toolbar',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -124,10 +126,15 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 REST_FRAMEWORK = {
-   "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-   "PAGE_SIZE": 5
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 5,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+    'rest_framework.authentication.TokenAuthentication',
+    ],
 }
 
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+AUTH_USER_MODEL = 'user.User'
