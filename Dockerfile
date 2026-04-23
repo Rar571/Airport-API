@@ -1,4 +1,4 @@
-FROM python:3.12-alpine
+FROM python:3.12-slim
 
 LABEL maintainer="airport"
 
@@ -7,6 +7,8 @@ ENV PYTHONBUFFERED 1
 WORKDIR app/
 
 COPY requirements.txt .
+
+RUN apt-get update && apt-get install -y libpq-dev gcc && rm -rf /var/lib/apt/lists/*
 RUN pip install --no-cache-dir -r requirements.txt
 
 RUN adduser \
