@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from rest_framework import viewsets
 
 from airport_app.models import Airport, Route, Flight, Airplane, Crew, AirplaneType, Ticket, Order
@@ -24,7 +22,11 @@ class AirportViewSet(viewsets.ModelViewSet):
         route = self.request.query_params.get("route")
         if route:
             route_id = self._params_to_int(route)
-            return self.queryset.filter(routes_source__id__in=route_id)
+            return (self.queryset.
+                    filter(routes_source__id__in=route_id)
+                    .prefetch_related("routes_source"))
+        if self.action in ("list", "retrieve"):
+            return self.queryset.prefetch_related("routes_source")
         return self.queryset
 
 
@@ -36,6 +38,13 @@ class RouteViewSet(viewsets.ModelViewSet):
         if self.action == "retrieve":
             return RouteRetrieveSerializer
         return RouteSerializer
+
+    def get_queryset(self):
+        if self.action in ("list", "retrieve"):
+            return (self.queryset
+                    .select_related("source", "destination")
+                    .prefetch_related("flights_route"))
+        return self.queryset
 
 
 class FlightViewSet(viewsets.ModelViewSet):
@@ -50,22 +59,26 @@ class FlightViewSet(viewsets.ModelViewSet):
         return FlightSerializer
 
     def get_queryset(self):
+        queryset = Flight.objects.all()
         airplane = self.request.query_params.get("airplane")
         route_source = self.request.query_params.get("route_source")
         route_destination = self.request.query_params.get("route_destination")
 
         if airplane:
-            return self.queryset.filter(
+            return queryset.filter(
                 airplane__name__icontains=airplane
             )
         if route_source:
-            return self.queryset.filter(
+            return queryset.filter(
                 route__source__name__icontains=route_source
             )
         if route_destination:
-            return self.queryset.filter(route__destination__name__icontains=route_destination)
-
-        return self.queryset
+            return queryset.filter(route__destination__name__icontains=route_destination)
+        return (queryset.
+                select_related("route", "airplane",
+                               "route__source", "route__destination",
+                               "airplane__airplane_type").
+                                prefetch_related("crew"))
 
 
 class AirplaneViewSet(viewsets.ModelViewSet):
@@ -92,6 +105,11 @@ class TicketViewSet(viewsets.ModelViewSet):
             return TicketListSerializer
         return TicketSerializer
 
+    def get_queryset(self):
+        if self.action in ("list", "retrieve"):
+            return self.queryset.select_related("flight", "order")
+        return self.queryset
+
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
@@ -103,7 +121,9 @@ class OrderViewSet(viewsets.ModelViewSet):
         return OrderSerializer
 
     def get_queryset(self):
-        return self.queryset.filter(user=self.request.user)
+        return (self.queryset
+                .filter(user=self.request.user)
+                .prefetch_related("tickets_order"))
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

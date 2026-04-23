@@ -25,8 +25,8 @@ class RouteSerializer(serializers.ModelSerializer):
 class AirportSerializer(serializers.ModelSerializer):
     routes = serializers.PrimaryKeyRelatedField(
         source="routes_source",
-        queryset=Route.objects.all(),
-        many=True
+        many=True,
+        read_only=True
     )
 
     class Meta:
