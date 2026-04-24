@@ -180,7 +180,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return (self.queryset
                 .filter(user=self.request.user)
-                .prefetch_related("tickets_order"))
+                .prefetch_related("available_tickets"))
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

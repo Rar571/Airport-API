@@ -160,17 +160,17 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
-    tickets_order = serializers.PrimaryKeyRelatedField(
+    available_tickets = serializers.PrimaryKeyRelatedField(
         many=True,
         queryset=Ticket.objects.filter(order__isnull=True),
     )
     class Meta:
         model = Order
-        fields = ("id", "tickets_order")
+        fields = ("id", "available_tickets")
 
     def create(self, validated_data):
-        tickets_data = validated_data.pop("tickets_order")
+        tickets_data = validated_data.pop("available_tickets")
         order = Order.objects.create(**validated_data)
-        order.tickets_order.set(tickets_data)
+        order.available_tickets.set(tickets_data)
         return order
 

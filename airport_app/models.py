@@ -72,7 +72,7 @@ class Ticket(models.Model):
     seat = models.PositiveIntegerField()
     flight = models.ForeignKey(Flight, on_delete=models.DO_NOTHING, related_name="tickets_flight")
     order = models.ForeignKey("Order", on_delete=models.CASCADE,
-                              null=True, blank=True, related_name="tickets_order")
+                              null=True, blank=True, related_name="available_tickets")
 
     class Meta:
         ordering = ("seat",)
