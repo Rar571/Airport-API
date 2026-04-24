@@ -174,3 +174,8 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         order.available_tickets.set(tickets_data)
         return order
 
+
+class TicketRetrieveSerializer(TicketListSerializer):
+    order = OrderSerializer(
+        many=False,
+        read_only=True)
