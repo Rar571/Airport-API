@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from airport_app.models import Airport, Route, Flight, Airplane, Crew, AirplaneType, Ticket, Order
 from airport_app.permissions import IsAdminAllORIsAuthenticatedOReadOnly
-from airport_app.serializers import AirportSerializer, RouteSerializer, FlightSerializer, CrewSerializer, AirplaneTypeSerializer, TicketSerializer, OrderSerializer, AirplaneSerializer, FlightCreateSerializer, AirportRetrieveSerializer, FlightRetrieveSerializer, RouteRetrieveSerializer, TicketListSerializer, OrderCreateSerializer, AirportCreateSerializer, AirplaneImageSerializer
+from airport_app.serializers import AirportSerializer, RouteSerializer, FlightSerializer, CrewSerializer, AirplaneTypeSerializer, TicketSerializer, OrderSerializer, AirplaneSerializer, FlightCreateSerializer, AirportRetrieveSerializer, FlightRetrieveSerializer, RouteRetrieveSerializer, TicketListSerializer, OrderCreateSerializer, AirportCreateSerializer, AirplaneImageSerializer, TicketRetrieveSerializer
 
 
 class AirportViewSet(viewsets.ModelViewSet):
@@ -157,8 +157,10 @@ class TicketViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminAllORIsAuthenticatedOReadOnly,)
 
     def get_serializer_class(self):
-        if self.action in ("list", "retrieve"):
+        if self.action in "list":
             return TicketListSerializer
+        elif self.action == "retrieve":
+            return TicketRetrieveSerializer
         return TicketSerializer
 
     def get_queryset(self):
