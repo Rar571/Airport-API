@@ -4,9 +4,32 @@ from rest_framework.decorators import action, permission_classes
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
-from airport_app.models import Airport, Route, Flight, Airplane, Crew, AirplaneType, Ticket, Order
+from airport_app.models import (Airport,
+                                Route,
+                                Flight,
+                                Airplane,
+                                Crew,
+                                AirplaneType,
+                                Ticket,
+                                Order)
 from airport_app.permissions import IsAdminAllORIsAuthenticatedOReadOnly
-from airport_app.serializers import AirportSerializer, RouteSerializer, FlightSerializer, CrewSerializer, AirplaneTypeSerializer, TicketSerializer, OrderSerializer, AirplaneSerializer, FlightCreateSerializer, AirportRetrieveSerializer, FlightRetrieveSerializer, RouteRetrieveSerializer, TicketListSerializer, OrderCreateSerializer, AirportCreateSerializer, AirplaneImageSerializer, TicketRetrieveSerializer
+from airport_app.serializers import (AirportSerializer,
+                                     RouteSerializer,
+                                     FlightSerializer,
+                                     CrewSerializer,
+                                     AirplaneTypeSerializer,
+                                     TicketSerializer,
+                                     OrderSerializer,
+                                     AirplaneSerializer,
+                                     FlightCreateSerializer,
+                                     AirportRetrieveSerializer,
+                                     FlightRetrieveSerializer,
+                                     RouteRetrieveSerializer,
+                                     TicketListSerializer,
+                                     OrderCreateSerializer,
+                                     AirportCreateSerializer,
+                                     AirplaneImageSerializer,
+                                     TicketRetrieveSerializer)
 
 
 class AirportViewSet(viewsets.ModelViewSet):
