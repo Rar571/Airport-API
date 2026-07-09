@@ -64,9 +64,9 @@ SECRET_KEY=your_django_secret_key
 3. **Spin Up the Containers:**
 ```bash
 docker-compose up --build
+```
 This single command builds the application image, downloads PostgreSQL,
 sets up volume bindings, executes migrations, and starts the Django development server.
-```
 ## ⚙️ Manual Local Installation
 If you prefer to run the application outside of Docker:
 1. **Set Up Virtual Environment:**
