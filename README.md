@@ -47,9 +47,9 @@ Make sure you have [Docker](https://docs.docker.com/get-docker/) and
 [Docker Compose](https://docs.docker.com/compose/install/) installed.
 
 1. **Clone the Repository:**
-   ```bash
-   git clone [https://github.com/Rar571/Airport-API.git](https://github.com/Rar571/Airport-API.git)
-   cd Airport-API
+```bash
+git clone [https://github.com/Rar571/Airport-API.git](https://github.com/Rar571/Airport-API.git)
+cd Airport-API
 2. **Configure Environment Variables:**
 Create a .env file in the root directory and define your credentials (refer to .env.sample if available):
 ```bash
@@ -67,32 +67,32 @@ sets up volume bindings, executes migrations, and starts the Django development 
 ```
 ## ⚙️ Manual Local Installation
 If you prefer to run the application outside of Docker:
-    1. **Set Up Virtual Environment:**
-    ```bash
-    python -m venv venv
+1. **Set Up Virtual Environment:**
+```bash
+python -m venv venv
     
-    # Linux / macOS
-    source venv/bin/activate
-    # Windows
-    venv\Scripts\activate
-    ```
-    2. **Install Dependencies & Configure Environment**
-    ```bash
-    pip install -r requirements.txt
+# Linux / macOS
+source venv/bin/activate
+# Windows
+venv\Scripts\activate
+```
+2. **Install Dependencies & Configure Environment**
+```bash
+pip install -r requirements.txt
 
-    # Windows (Command Prompt)
-    set POSTGRES_HOST=localhost
-    set POSTGRES_DATABASE=your_db_name
-    set POSTGRES_USER=your_username
-    set POSTGRES_PASSWORD=your_password
-    set SECRET_KEY=your_secret_key
+# Windows (Command Prompt)
+set POSTGRES_HOST=localhost
+set POSTGRES_DATABASE=your_db_name
+set POSTGRES_USER=your_username
+set POSTGRES_PASSWORD=your_password
+set SECRET_KEY=your_secret_key
 
-    # Linux / macOS (Terminal)
-    export POSTGRES_HOST=localhost
-    ```
+# Linux / macOS (Terminal)
+export POSTGRES_HOST=localhost
+```
 3. **Initialize Database & Run**
-    ```bash
-    python manage.py migrate
-    python manage.py runserver
-    The server will be available at http://127.0.0.1:8000/
-    ```
+```bash
+python manage.py migrate
+python manage.py runserver
+The server will be available at http://127.0.0.1:8000/
+```
