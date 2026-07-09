@@ -48,7 +48,7 @@ Make sure you have [Docker](https://docs.docker.com/get-docker/) and
 
 1. **Clone the Repository:**
 ```bash
-git clone [https://github.com/Rar571/Airport-API.git](https://github.com/Rar571/Airport-API.git)
+git clone https://github.com/Rar571/Airport-API.git
 cd Airport-API
 2. **Configure Environment Variables:**
 Create a .env file in the root directory and define your credentials (refer to .env.sample if available):
